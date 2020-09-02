@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""This module defines a class to manage file storage for hbnb clone"""
+""" This module defines a class to manage file storage for hbnb clone
+"""
+
 import json
 
 
@@ -10,11 +12,10 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls != None:
+        if cls is not None:
             object_list = {}
             for cls_id, obj in FileStorage.__objects.items():
                 if type(obj) == cls:
-                    # print("input cls: {}, type(obj): {}".format(cls, type(obj)))
                     object_list[cls_id] = obj
             return object_list
 
@@ -62,5 +63,9 @@ class FileStorage:
         try:
             del FileStorage.__objects[obj.to_dict()[
                 '__class__'] + '.' + obj.id]
-        except:
+        except Exception:
             return
+
+    def close(self):
+        """ for deserializing the JSON file to objects """
+        self.save()

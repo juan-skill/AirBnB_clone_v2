@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ This is the file storage class for AirBnB"""
 
-from models.base_model import BaseModel, Base
+# from models.base_model import BaseModel, Base
+from models.base_model import Base
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 import os
@@ -86,3 +87,9 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(Session_factory)
         self.__session = Session()
+
+    def close(self):
+        """
+        close session
+        """
+        self.__session.close()
